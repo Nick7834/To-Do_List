@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/6194/6194029.png" type="image/x-icon">
+    <link rel="stylesheet" href="./scss/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>Todo List</title>
+</head>
+<body>
+   
+    <div class="wrapper">
+        <header class="header">
+            <div class="container">
+                
+                <div class="header__content">
+
+                    <label class="header__label">
+                        <form id="form" class="header__form">
+                            <input id="input" type="text" minlength="0" maxlength="301" class="header__input" placeholder="Add new task">
+                            <button type="submit" class="header__button"> <svg width="13" height="20" viewBox="0 0 13 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1.75 2L10.2896 9.6875C10.356 9.74361 10.409 9.81138 10.4451 9.88663C10.4813 9.96188 10.5 10.043 10.5 10.125C10.5 10.207 10.4813 10.2881 10.4451 10.3634C10.409 10.4386 10.356 10.5064 10.2896 10.5625L1.75 18.25" stroke="#94ADCF" stroke-width="3.42857" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg></button>
+                        </form>
+                    </label>
+
+                        <div class="burger">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <div class="burger-block">
+                            <div class="burger-block__reference">
+                                <div class="burger-block__button">
+                                    <button class="burger-block__button">reference</button>
+                                </div>
+                                <div class="burger-block__modal">
+                                    <ul>
+                                        <li>DDD</li>
+                                        <li>WEF</li>
+                                        <li>WEF</li>
+                                        <li>WEF</li>
+                                        <li>WEF</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+
+            </div>
+        </header>
+
+        <main class="main">
+            <section class="active-tasks">
+                <div class="container">
+
+                    <div class="active-tasks__content">
+
+                        <div class="active-tasks__notTask">NO TASKS</div>
+
+
+                    </div>
+
+                    <div class="completed">
+                        <div class="completed__title">Completed</div>
+
+                        <div class="completed__tasks">
+
+                            <!-- <div class="active-tasks__task">
+                                <button class="active-tasks__click"></button>
+                                <div class="active-tasks__text">Go shopping</div>
+                            </div> -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="./script/script.js"></script>
+    <script src="./script/burger.js"></script>
+</body>
+</html>
