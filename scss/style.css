@@ -209,7 +209,7 @@ h1, h2, h3, h4, h5, h6, p {
 .active-tasks__task:hover {
   background: #464f5a;
 }
-.active-tasks__task:hover .active-tasks__pen {
+.active-tasks__task:hover .active-tasks__pen, .active-tasks__task:hover .active-tasks__back {
   visibility: visible;
   opacity: 1;
 }
@@ -247,6 +247,27 @@ h1, h2, h3, h4, h5, h6, p {
   height: 17px;
 }
 .active-tasks__pen:hover {
+  background-color: #666e79;
+}
+.active-tasks__back {
+  visibility: hidden;
+  opacity: 0;
+  border: 0;
+  background: 0;
+  padding: 5px;
+  transition: all 0.5s ease-in-out;
+  border-radius: 100px;
+  padding: 5px;
+}
+.active-tasks__back::after {
+  content: "";
+  display: block;
+  background-image: url("../back.svg");
+  background-repeat: no-repeat;
+  width: 17px;
+  height: 17px;
+}
+.active-tasks__back:hover {
   background-color: #666e79;
 }
 .active-tasks__content-i {

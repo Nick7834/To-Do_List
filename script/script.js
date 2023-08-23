@@ -26,7 +26,7 @@ tasks.forEach(e => {
                 <div class="active-tasks__text">${e.text}</div>
             </div>
 
-            <button onClick="editTask(this)" data-action="edit" class="active-tasks__pen"></button>
+            <button onClick="showFun(this)" data-action="edit" class="active-tasks__pen"></button>
     </div>`;
 
     addTasks.insertAdjacentHTML('beforeend', add);
@@ -38,22 +38,25 @@ tasks.forEach(e => {
 });
 
 qq.forEach(e => {
+
     const adds = `<div id=${e.id} data-action='add' data-action='del' class="active-tasks__task">
 
-    <div class="active-tasks__content-i">
-            <button data-action="circle" class="active-tasks__click"></button>
-            <div class="active-tasks__text">${e.text}</div>
-    </div>
+        <div class="active-tasks__content-i">
+                <button data-action="circle" class="active-tasks__click"></button>
+                <div class="active-tasks__text">${e.text}</div>
+        </div>
 
-    <button onClick="editTask(this)" data-action="edit" class="active-tasks__pen" disabled></button>
-</div>`;
+        <button onClick="showFun(this)" class="active-tasks__back"></button>
+    </div>`;
+    
+    if (completed) {
+        completed.insertAdjacentHTML('beforeend', adds);
+    }
 
-completed.insertAdjacentHTML('beforeend', adds);
+    console.log(document.querySelector('.active-tasks__pen'));
 
     console.log(adds)
-})
-
-
+});
 
 form.addEventListener('submit', addTask);
 addTasks.addEventListener('click', addCompleted);
@@ -81,7 +84,7 @@ function addTask(e) {
                     <div class="active-tasks__text">${newTask.text}</div>
             </div>
 
-            <button onClick="editTask(this)" data-action="edit" class="active-tasks__pen"></button>
+            <button onClick="showFun(this)" data-action="edit" class="active-tasks__pen"></button>
     </div>`;
 
     addTasks.insertAdjacentHTML('beforeend', add);
@@ -122,8 +125,13 @@ function addCompleted(el) {
 
     // Сохранение выполненных задач в localStorage
     qqLocal()
+
+    const buttonElement = parentNode.querySelector('.active-tasks__pen');
+    buttonElement.classList.remove('active-tasks__pen');
+    buttonElement.classList.add('active-tasks__back');
     
     completed.appendChild(parentNode);
+
 
     
     if(addTasks.children.length === 1) {
@@ -147,40 +155,79 @@ function del(el) {
     parentDel.remove()
 }
 
-function editTask(el) {
+function showFun(el) {
 
-    const parentDel = el.parentNode;
-    const id = Number(parentDel.id);
-    const delMass = tasks.findIndex(task => task.id === id);
+    const parentNode = el.parentNode;
+    const id = Number(parentNode.id);
 
-    if(!parentDel.classList.contains('edit')) {
-        parentDel.classList.add('edit');
-        parentDel.querySelector('.active-tasks__text').innerHTML = `<input class="active-tasks__edits" type="test" value="${tasks[delMass].text}" />`;
-        const inpEdit = document.querySelector('.active-tasks__edits');
-        const end = inpEdit.value.length;
-        inpEdit.setSelectionRange(end, end);
-        inpEdit.focus()
-    } else {
-        delEdit(delMass, parentDel);
+    const activeTaskIndex = tasks.findIndex(task => task.id === id);
+
+    const completedTaskIndex = qq.findIndex(task => task.id === id);
+
+    
+    if(activeTaskIndex !== -1) {
+            const parentDel = el.parentNode;
+            const id = Number(parentDel.id);
+            const delMass = tasks.findIndex(task => task.id === id);
+        
+            if(!parentDel.classList.contains('edit')) {
+                parentDel.classList.add('edit');
+                parentDel.querySelector('.active-tasks__text').innerHTML = `<input class="active-tasks__edits" type="test" value="${tasks[delMass].text}" />`;
+                const inpEdit = document.querySelector('.active-tasks__edits');
+                const end = inpEdit.value.length;
+                inpEdit.setSelectionRange(end, end);
+                inpEdit.focus()
+            } else {
+                delEdit(delMass, parentDel);
+            }
+        
+            document.addEventListener('click', (e) => {
+                if(!e.target.closest('.active-tasks__task')) {
+                    if(parentDel.classList.contains('edit')) {
+                        delEdit(delMass, parentDel);
+                    }
+                }
+            });
+        
+            document.addEventListener('keydown', e => {
+                if(e.key === 'Enter') {
+                    if(parentDel.classList.contains('edit')) {
+                        delEdit(delMass, parentDel);
+                        console.log('3')
+                    }
+                }
+            })
+        
+
+    } else if (completedTaskIndex !== -1) {
+        const parentNode = el.parentNode;
+        const id = Number(parentNode.id);
+        const delMass = qq.findIndex(task => task.id === id);
+    
+        const trueTask = {
+            id: Number(parentNode.id),
+            text: qq[delMass].text,
+            done: true, 
+        }
+    
+        qq.splice(delMass, 1);
+    
+        qqLocal();
+    
+        tasks.push(trueTask);
+    
+        saveLocal();
+    
+        const buttonElement = parentNode.querySelector('.active-tasks__back');
+        buttonElement.classList.remove('active-tasks__back');
+        buttonElement.classList.add('active-tasks__pen');
+    
+        addTasks.appendChild(parentNode);
+    
+        if(addTasks.children.length > 1) {
+            notTask.classList.add('none');
+        }
     }
-
-    document.addEventListener('click', (e) => {
-        if(!e.target.closest('.active-tasks__task')) {
-            if(parentDel.classList.contains('edit')) {
-                delEdit(delMass, parentDel);
-            }
-        }
-    });
-
-    document.addEventListener('keydown', e => {
-        if(e.key === 'Enter') {
-            if(parentDel.classList.contains('edit')) {
-                delEdit(delMass, parentDel);
-                console.log('3')
-            }
-        }
-    })
-
 }
 
 function delEdit(e, el) {
@@ -193,6 +240,7 @@ function delEdit(e, el) {
         el.classList.remove('edit');
     }
 }
+
 
 // сохраним 
 

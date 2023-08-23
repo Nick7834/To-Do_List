@@ -44,7 +44,7 @@
          &:hover {
             background: #464f5a;
 
-            .active-tasks__pen {
+            .active-tasks__pen, .active-tasks__back {
                 visibility: visible;
                 opacity: 1;
             }
@@ -88,6 +88,34 @@
                 content: '';
                 display: block;
                 background-image: url('../pen.svg');
+                background-repeat: no-repeat;
+                width: 17px;
+                height: 17px;
+            }
+
+            &:hover {
+                background-color: #666e79;
+            }
+    }
+
+    &__back {
+        visibility: hidden;
+        opacity: 0;
+
+        border: 0;
+        background: 0;
+
+        padding: 5px;
+
+        transition: all .5s ease-in-out;
+
+        border-radius: 100px;
+        padding: 5px;
+
+            &::after {
+                content: '';
+                display: block;
+                background-image: url('../back.svg');
                 background-repeat: no-repeat;
                 width: 17px;
                 height: 17px;
