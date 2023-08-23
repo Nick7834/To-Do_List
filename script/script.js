@@ -269,6 +269,8 @@ removeAllTasks.addEventListener('click', () => {
         const completedTasks = document.querySelectorAll('.completed__tasks .active-tasks__task');
         completedTasks.forEach(task => task.remove());
 
+        block.classList.remove('open');
+
         saveLocal()
         qqLocal()
         counterTask() 
