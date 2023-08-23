@@ -62,10 +62,18 @@ form.addEventListener('submit', addTask);
 addTasks.addEventListener('click', addCompleted);
 completed.addEventListener('click', del);
 
+function updateNoTaskText() {
+    if (addTasks.children.length > 1) {
+        notTask.classList.add('none');
+    } else {
+        notTask.classList.remove('none');
+    }
+}
+
 function addTask(e) {
     e.preventDefault()
 
-    if(!inp.value || inp.value.trim() < 1) return;
+    if(!inp.value || inp.value.trim() === '') return;
 
     const newTask = {
         id: Date.now(),
@@ -93,9 +101,9 @@ function addTask(e) {
 
     inp.focus();
 
-    if(addTasks.children.length > 1) {
-        notTask.classList.add('none');
-    }
+    updateNoTaskText();
+
+    counterTask();
 
 }
 
@@ -132,11 +140,11 @@ function addCompleted(el) {
     
     completed.appendChild(parentNode);
 
+    counterTask()
 
+    console.log(addTasks.children.length)
     
-    if(addTasks.children.length === 1) {
-        notTask.classList.remove('none');
-    }
+    updateNoTaskText()
 }
 
 function del(el) {
@@ -153,6 +161,8 @@ function del(el) {
     qqLocal()
 
     parentDel.remove()
+
+    counterTask()
 }
 
 function showFun(el) {
@@ -193,10 +203,11 @@ function showFun(el) {
                 if(e.key === 'Enter') {
                     if(parentDel.classList.contains('edit')) {
                         delEdit(delMass, parentDel);
-                        console.log('3')
                     }
                 }
-            })
+            });
+
+            counterTask()
         
 
     } else if (completedTaskIndex !== -1) {
@@ -223,10 +234,10 @@ function showFun(el) {
         buttonElement.classList.add('active-tasks__pen');
     
         addTasks.appendChild(parentNode);
+
     
-        if(addTasks.children.length > 1) {
-            notTask.classList.add('none');
-        }
+        updateNoTaskText()
+        counterTask()
     }
 }
 
@@ -241,6 +252,48 @@ function delEdit(e, el) {
     }
 }
 
+// remove all tasks 
+
+const removeAllTasks = document.querySelector('.burger-block__remove');
+
+removeAllTasks.addEventListener('click', () => {
+    const confirmTasks = confirm('Are you sure you want to delete all the tasks?')
+
+    if(confirmTasks) {
+        tasks = [];
+        qq = [];
+    
+        const activeTasks = document.querySelectorAll('.active-tasks__task');
+        activeTasks.forEach(task => task.remove());
+
+        const completedTasks = document.querySelectorAll('.completed__tasks .active-tasks__task');
+        completedTasks.forEach(task => task.remove());
+
+        saveLocal()
+        qqLocal()
+        counterTask() 
+
+        updateNoTaskText()
+    }
+
+})
+
+// counter tasks 
+
+const activeTaskNumT = document.querySelector('.burger-block__active-t');
+const activeTaskNumC = document.querySelector('.burger-block__active-c');
+
+function counterTask() {
+    const activeMass = tasks.length;
+    const complitedMass = qq.length;
+
+    activeTaskNumT.innerHTML = activeMass;
+    activeTaskNumC.innerHTML = complitedMass;
+
+    localStorage.setItem('activeTaskCount', activeMass);
+    localStorage.setItem('completedTaskCount', complitedMass);
+}
+
 
 // сохраним 
 
@@ -252,6 +305,11 @@ function qqLocal() {
     localStorage.setItem('qq', JSON.stringify(qq))
 }
 
+const savedActiveTaskCount = parseInt(localStorage.getItem('activeTaskCount')) || 0;
+const savedCompletedTaskCount = parseInt(localStorage.getItem('completedTaskCount')) || 0;
+
+activeTaskNumT.innerHTML = savedActiveTaskCount;
+activeTaskNumC.innerHTML = savedCompletedTaskCount;
 
 // найти в комплитеде кнопку редакьирования 
 // забрать ее и обрабоать 

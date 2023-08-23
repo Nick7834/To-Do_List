@@ -3,6 +3,7 @@
 @import "./blocks/task";
 
 .wrapper {
+    position: relative;
     overflow: hidden;
     display: flex;
     flex-direction: column;

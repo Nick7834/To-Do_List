@@ -129,7 +129,7 @@ h1, h2, h3, h4, h5, h6, p {
   width: 40px;
   position: relative;
   cursor: pointer;
-  z-index: 5;
+  z-index: 1000;
 }
 .burger span {
   transition: all 0.3s ease 0s;
@@ -152,23 +152,62 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .burger-block {
-  display: none;
+  visibility: hidden;
+  opacity: 0;
   position: absolute;
-  right: 0;
   top: 0;
-  background: #616871;
-  max-width: 200px;
+  right: 0;
+  transform: translateX(100px);
+  background: rgb(80, 92, 107);
+  max-width: 500px;
   width: 100%;
-  height: 200px;
+  height: 100%;
   padding: 20px;
+  z-index: 500;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  transition: all 0.3s ease-in-out;
 }
-.burger-block__modal {
-  display: none;
-  position: absolute;
+.burger-block__tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.burger-block__task-active {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 400;
+  font-size: 16px;
+  color: white;
+  text-transform: uppercase;
+}
+.burger-block__task-active span {
+  font-weight: bold;
+  font-size: 20px;
+}
+.burger-block__remove {
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 12px;
+  background-color: #faf9ff;
+  color: #38404B;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+}
+.burger-block__remove:hover {
+  background-color: #ff432e;
+  color: white;
 }
 
 .open {
-  display: block;
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .active-tasks__content {
@@ -330,6 +369,7 @@ h1, h2, h3, h4, h5, h6, p {
   }
 }
 .wrapper {
+  position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;

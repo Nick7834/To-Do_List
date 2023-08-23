@@ -60,7 +60,7 @@
     width: 40px;
     position: relative;
     cursor: pointer;
-    z-index: 5;
+    z-index: 1000;
 
     span {
       transition: all 0.3s ease 0s;
@@ -99,28 +99,74 @@
 }
 
 
-.burger-block {
-    display: none;
+.burger-block { 
+    visibility: hidden;
+    opacity: 0;
+
     position: absolute;
-    right: 0;
     top: 0;
+    right: 0;
+    transform: translateX(100px);
 
-    background: #616871;
-    max-width: 200px;
+    background: rgb(80, 92, 107);
+    max-width: 500px;
     width: 100%;
-    height: 200px;
+    height: 100%;
     padding: 20px;
+    z-index: 500;
 
-    &__modal {
-        display: none;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
 
-        position: absolute;
-        
-        
-    }
-   
+    transition: all .3s ease-in-out;
+
+        &__tasks {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        &__task-active {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-weight: 400;
+            font-size: 16px;
+
+            color: white;
+            text-transform: uppercase;
+
+                span {
+                    font-weight: bold;
+                    font-size: 20px;
+                }
+        }
+
+        &__remove {
+            padding: 10px 20px;
+            border: 0;
+            border-radius: 12px;
+
+            background-color: #faf9ff;
+            color: #38404B;
+            font-size: 16px;
+            font-weight: 600;
+
+            transition: all .3s ease-in-out;
+
+                &:hover {
+                    background-color: #ff432e;
+                    color: white;
+                }
+        }
 }
 
 .open {
-    display: block;
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(0);
 }

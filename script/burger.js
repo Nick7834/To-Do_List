@@ -3,15 +3,16 @@ const block = document.querySelector('.burger-block');
 
 burger.addEventListener('click', () => {
     block.classList.toggle('open');
-
 });
 
+document.addEventListener('click', e => {
+    if(!e.target.closest('.burger-block') && !e.target.closest('.burger')) {
+        block.classList.remove('open');
+    }
+});
 
-// modal 
-
-const clicks = document.querySelector('.burger-block__button');
-const modal = document.querySelector('.burger-block__modal');
-
-clicks.addEventListener('click', () => {
-   modal.classList.toggle('open');
+document.addEventListener('keydown', e => {
+    if(e.key === 'Escape') {
+        block.classList.remove('open');
+    }
 });
