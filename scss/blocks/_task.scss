@@ -96,6 +96,11 @@
             &:hover {
                 background-color: #666e79;
             }
+
+            @media (max-width: 750px) {
+                visibility: visible;
+                opacity: 1;
+            }
     }
 
     &__back {
@@ -123,6 +128,11 @@
 
             &:hover {
                 background-color: #666e79;
+            }
+
+            @media (max-width: 750px) {
+                visibility: visible;
+                opacity: 1;
             }
     }
 

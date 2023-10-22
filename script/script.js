@@ -173,7 +173,6 @@ function showFun(el) {
     const activeTaskIndex = tasks.findIndex(task => task.id === id);
 
     const completedTaskIndex = qq.findIndex(task => task.id === id);
-
     
     if(activeTaskIndex !== -1) {
             const parentDel = el.parentNode;
