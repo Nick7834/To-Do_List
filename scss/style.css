@@ -401,4 +401,8 @@ h1, h2, h3, h4, h5, h6, p {
   width: 100%;
   padding: 0 15px;
   margin: 0 auto;
+}
+
+.main {
+  padding-bottom: 74px;
 }/*# sourceMappingURL=style.css.map */
